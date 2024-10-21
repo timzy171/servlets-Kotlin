@@ -16,20 +16,26 @@ public class User {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @NotNull
     @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
-    private String name;
+    public String name;
 
-    @NotNull
     @Column(name = "surname", nullable = false, length = Integer.MAX_VALUE)
-    private String surname;
+    public String surname;
 
-    @NotNull
-    @Column(name = "login", nullable = false, length = Integer.MAX_VALUE)
-    private String login;
+    @Column(name = "username", nullable = false, length = Integer.MAX_VALUE)
+    public String username;
 
-    @NotNull
     @Column(name = "password", nullable = false, length = Integer.MAX_VALUE)
-    private String password;
+    public String password;
 
+    public User() {
+
+    }
+
+    public User(String name, String surname, String username, String password) {
+        this.name = name;
+        this.surname = surname;
+        this.username = username;
+        this.password = password;
+    }
 }

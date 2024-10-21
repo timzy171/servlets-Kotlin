@@ -45,6 +45,9 @@ noArg {
 
 dependencies {
     compileOnly('jakarta.servlet:jakarta.servlet-api:6.1.0')
+    compileOnly("org.projectlombok:lombok:1.18.34")
+
+    implementation("org.postgresql:postgresql:42.7.4")
     implementation('org.glassfish.jersey.containers:jersey-container-servlet:4.0.0-M1')
     implementation('org.glassfish.jersey.media:jersey-media-json-jackson:4.0.0-M1')
     implementation('org.glassfish.jersey.inject:jersey-hk2:4.0.0-M1')
