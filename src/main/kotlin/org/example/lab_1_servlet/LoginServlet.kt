@@ -10,6 +10,11 @@ import jakarta.servlet.http.HttpServletResponse
 @WebServlet(name = "signInServlet", value = ["/signIn-Servlet"])
 class LoginServlet : HttpServlet() {
 
+    override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?) {
+        val view = req?.getRequestDispatcher("signIn.jsp")
+        view?.forward(req, resp)
+    }
+
 
     override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?) {
         if (req != null && resp != null) {

@@ -22,14 +22,20 @@ class CreateTaskServlet : HttpServlet() {
     override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?) {
         req?.let {
             val taskName = it.getParameter("taskName")
-            DbHelper.saveTask(Task(taskName))
 
-            val task = DbHelper.getTask(taskName)
-            val user = DbHelper.getUser(username)
+            if (!DbHelper.isTaskInDb(taskName)) {
+                DbHelper.saveTask(Task(taskName))
 
-            DbHelper.saveUserTaskRel(UserTask(user?.id, task?.id))
+                val task = DbHelper.getTask(taskName)
+                val user = DbHelper.getUser(username)
 
-            resp?.sendRedirect("personalAccount-Servlet?username=${username}")
+                DbHelper.saveUserTaskRel(UserTask(user?.id, task?.id))
+
+                resp?.sendRedirect("personalAccount-Servlet?username=${username}")
+            } else {
+                req.setAttribute("errorMessage", "Такая задача уже существует")
+                resp?.sendRedirect("createTask-servlet?username=${username}")
+            }
         }
     }
 }

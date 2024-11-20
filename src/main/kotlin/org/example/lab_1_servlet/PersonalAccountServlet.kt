@@ -14,6 +14,11 @@ class PersonalAccountServlet : HttpServlet() {
         val username = req?.getParameter("username")
         val user = username?.let { DbHelper.getUser(it) }
 
+        val list = DbHelper.getTasksForUser(user!!.id)
+
+        req?.setAttribute("taskList", list)
+
+
         user?.let {
             req.setAttribute("username", user.username)
             req.setAttribute("surname", user.surname)

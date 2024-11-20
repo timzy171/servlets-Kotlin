@@ -62,6 +62,33 @@ object DbHelper {
         return user != null
     }
 
+    fun isTaskInDb(taskName: String) : Boolean {
+        val sessionFactory = HibernateUtil.getSessionFactory()
+        val session: Session = sessionFactory.openSession()
+        var transaction: Transaction? = null
+        var task: Task? = null
+
+        try {
+            transaction = session.beginTransaction()
+            val query: org.hibernate.query.Query<Task> = session.createQuery(
+                "FROM Task WHERE name = :taskName",
+                Task::class.java
+            )
+
+            query.setParameter("taskName", taskName)
+            task = query.uniqueResult()
+
+            transaction.commit()
+        } catch (e: Exception) {
+            transaction?.rollback()
+            e.printStackTrace()
+        } finally {
+            session.close()
+        }
+
+        return task != null
+    }
+
     fun saveUser(user: User) {
         val sessionFactory = HibernateUtil.getSessionFactory()
         val session = sessionFactory.openSession()
@@ -139,5 +166,67 @@ object DbHelper {
         }
 
         return task
+    }
+
+    fun getTasksForUser(userId: Int): List<String> {
+        val sessionFactory = HibernateUtil.getSessionFactory()
+        val session: Session = sessionFactory.openSession()
+        var transaction: Transaction? = null
+        val taskNames = mutableListOf<String>()
+
+        try {
+            transaction = session.beginTransaction()
+
+            // Запрос для получения названий задач для данного пользователя
+            val query: org.hibernate.query.Query<String> = session.createQuery(
+                "SELECT t.name FROM UserTask ut JOIN Task t ON ut.taskId = t.id WHERE ut.userId = :userId",
+                String::class.java
+            )
+
+            query.setParameter("userId", userId)
+            taskNames.addAll(query.list()) // Получаем список названий задач
+
+            transaction.commit()
+        } catch (e: Exception) {
+            transaction?.rollback()
+            e.printStackTrace()
+        } finally {
+            session.close()
+        }
+
+        return taskNames
+    }
+
+    fun getAllTasks(): List<String> {
+        val sessionFactory = HibernateUtil.getSessionFactory()
+        val session: Session = sessionFactory.openSession()
+        var transaction: Transaction? = null
+        val taskNames = mutableListOf<String>()
+
+        try {
+            transaction = session.beginTransaction()
+
+            // Запрос для получения всех названий задач
+            val query: org.hibernate.query.Query<String> = session.createQuery(
+                "SELECT t.name FROM Task t",
+                String::class.java
+            )
+
+            taskNames.addAll(query.list()) // Получаем список названий задач
+
+            transaction.commit()
+        } catch (e: Exception) {
+            transaction?.rollback()
+            e.printStackTrace()
+        } finally {
+            session.close()
+        }
+
+        return taskNames
+    }
+
+
+    fun isUserAlreadySubscribedToTask(user: User, task: Task) : Boolean {
+        return getTasksForUser(user.id).contains(task.name)
     }
 }

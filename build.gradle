@@ -55,6 +55,9 @@ dependencies {
     implementation('org.hibernate:hibernate-core:7.0.0.Alpha3')
     implementation('org.glassfish.jaxb:jaxb-runtime:4.0.5')
     implementation('org.hibernate.validator:hibernate-validator:8.0.1.Final')
+    // https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api
+    implementation("jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.2")
+
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")

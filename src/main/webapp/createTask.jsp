@@ -66,5 +66,41 @@
     </form>
 </div>
 
+<style>
+    #notification {
+        border-radius: 4px;
+        background-color: #000000;
+        color: #ffffff;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        transition: opacity 0.5s ease;
+    }
+</style>
+
 </body>
+
+<% if (request.getAttribute("errorMessage") != null) { %>
+<div id="notification" class="alert alert-danger" style="display: none;">
+    <%= request.getAttribute("errorMessage") %>
+</div>
+<% } %>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var notification = document.getElementById('notification');
+        if (notification) {
+            notification.style.display = 'block';
+            setTimeout(function() {
+                notification.style.opacity = '0';
+                setTimeout(function() {
+                    notification.style.display = 'none';
+                }, 500);
+            }, 3000);
+        }
+    });
+</script>
+
 </html>
