@@ -18,12 +18,7 @@ class LoginServlet : HttpServlet() {
 
             if (user != null) {
                 with(req) {
-                    setAttribute("name", user.name)
-                    setAttribute("surname", user.surname)
-                    setAttribute("username", user.username)
-                    setAttribute("password", user.password)
-
-                    getRequestDispatcher("personal_account.jsp").forward(this, resp)
+                    resp.sendRedirect("personalAccount-Servlet?username=${user.username}")
                 }
             } else {
                 req.setAttribute("errorMessage", "Неправильный логин или пароль")

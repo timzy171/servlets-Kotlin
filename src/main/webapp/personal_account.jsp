@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="ru">
@@ -39,6 +40,23 @@
         .icon {
             color: #007bff;
         }
+        .create-task-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none; /* Убираем подчеркивание */
+        }
+        .create-task-btn:hover {
+            background-color: #0056b3; /* Темнее при наведении */
+        }
     </style>
 </head>
 <body>
@@ -59,6 +77,10 @@
             }
         %>
     </div>
+
+    <a href="createTask-servlet?username=<%= request.getAttribute("username") %>" class="create-task-btn">Создать задачу</a>
+</div>
+
 </div>
 
 </body>

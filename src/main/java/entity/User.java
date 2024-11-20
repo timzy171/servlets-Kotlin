@@ -9,12 +9,11 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "users")
-
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    public Integer id;
 
     @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
     public String name;
@@ -28,9 +27,7 @@ public class User {
     @Column(name = "password", nullable = false, length = Integer.MAX_VALUE)
     public String password;
 
-    public User() {
-
-    }
+    public User() {}
 
     public User(String name, String surname, String username, String password) {
         this.name = name;

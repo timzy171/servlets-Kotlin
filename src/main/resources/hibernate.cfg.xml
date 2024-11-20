@@ -15,6 +15,8 @@
             <property name="hibernate.use_sql_comments">true</property>
 
             <mapping class="entity.User"/>
+            <mapping class="entity.Task"/>
+            <mapping class="entity.UserTask"/>
 
     </session-factory>
 </hibernate-configuration>
